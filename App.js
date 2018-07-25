@@ -2,11 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import LoginPage from './src/pages/LoginPage';
+import SeriesPage from './src/pages/SeriesPage';
 
 
 export default createStackNavigator(
   {
-    Login: LoginPage
+    Login: LoginPage,
+    Main: SeriesPage
   },
   {
     navigationOptions: {
