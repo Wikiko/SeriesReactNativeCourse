@@ -56,7 +56,9 @@ export default class LoginPage extends React.Component {
 
     tryLogin() {
         this.setState({ isLoading: true });
-        const { mail, password } = this.state;
+        const { mail: email, password } = this.state;
+        this.props.tryLogin({ email, password })
+            .then(() => {
 
         const loginUserSuccess = user => {
             this.setState({ message: 'Sucesso' });
