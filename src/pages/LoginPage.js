@@ -6,9 +6,11 @@ import {
     Alert
 } from 'react-native';
 import firebase from 'firebase';
+import { connect } from 'react-redux';
 import FormRow from '../components/FormRow';
+import { tryLogin } from '../actions';
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -58,44 +60,21 @@ export default class LoginPage extends React.Component {
         this.setState({ isLoading: true });
         const { mail: email, password } = this.state;
         this.props.tryLogin({ email, password })
-            .then(() => {
-
-        const loginUserSuccess = user => {
-            this.setState({ message: 'Sucesso' });
-        };
-
-        const loginUserFailed = error => {
-            this.setState({ message: this.getMessageByErrorCode(error.code) });
-        }
-
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(mail, password)
-            .then(loginUserSuccess)
-            .catch(error => {
-                if (error.code === 'auth/user-not-found') {
-                    return Alert.alert(
-                        'Usuário não encontrado',
-                        'Deseja criar um cadastro com as infromações inseridas?',
-                        [{
-                            text: 'Não',
-                            style: 'cancel'
-                        }, {
-                            text: 'Sim',
-                            onPress: () => {
-                                firebase
-                                    .auth()
-                                    .createUserWithEmailAndPassword(mail, password)
-                                    .then(loginUserSuccess)
-                                    .catch(loginUserFailed);
-                            }
-                        }],
-                        { cancelable: false }
-                    );
+            .then(user => {
+                if (user) {
+                    return this.props.navigation.replace('Main');
                 }
-                return loginUserFailed(error);
+                this.setState({
+                    isLoading: false,
+                    message: ''
+                });
             })
-            .then(() => this.setState({ isLoading: false }));
+            .catch(error => {
+                this.setState({
+                    isLoading: false,
+                    message: this.getMessageByErrorCode(error.code)
+                });
+            });
     }
 
     onChangeHandler(field) {
@@ -156,3 +135,13 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     }
 });
+
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = {
+    tryLogin
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

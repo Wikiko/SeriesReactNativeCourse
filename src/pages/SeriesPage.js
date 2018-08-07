@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 });
 
 SeriesPage.navigationOptions = {
-    title: ''
+    title: 'Series'
 };
 
 export default SeriesPage;
