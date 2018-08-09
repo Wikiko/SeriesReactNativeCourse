@@ -1,17 +1,27 @@
 import React from 'react';
 import { Text, View, StyleSheet, FlatList } from 'react-native';
 import SerieCard from '../components/SerieCard';
-import { isOdd } from '../util';
+import { isEven } from '../util';
 
 import series from '../../series.json';
+import AddSerieCard from '../components/AddSerieCard';
 
 const SeriesPage = ({ ...props }) => (
     <View>
         <FlatList
-            data={series}
-            keyExtractor={item => item.id.toString()}
+            data={[...series, { isLast: true }]}
+            keyExtractor={item => item.id}
             renderItem={({ item, index }) => (
-                <SerieCard serie={item} isFirstColumn={isOdd(index)} />
+                item.isLast
+                    ? <AddSerieCard
+                        isFirstColumn={isEven(index)}
+                        onPress={() => props.navigation.navigate('SerieForm')}/>
+                    : <SerieCard
+                        serie={item}
+                        isFirstColumn={isEven(index)}
+                        onPress={() => props.navigation.navigate('SerieDetail', { serie: item })}
+                    />
+
             )}
             numColumns={2}
             ListHeaderComponent={props => (<View style={styles.marginTop} />)}

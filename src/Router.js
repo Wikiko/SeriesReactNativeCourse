@@ -1,12 +1,16 @@
 import { createStackNavigator } from 'react-navigation';
 import LoginPage from './pages/LoginPage';
 import SeriesPage from './pages/SeriesPage';
+import SerieDetailPage from './pages/SerieDetailPage';
+import SerieFormPage from './pages/SerieFormPage';
 
 
 export default createStackNavigator(
   {
+    SerieForm: SerieFormPage,
+    Login: LoginPage,
     Main: SeriesPage,
-    Login: LoginPage
+    SerieDetail: SerieDetailPage,
   },
   {
     navigationOptions: {

@@ -11,7 +11,7 @@ import {
 // O componente funciona com isFirst column para quando
 // é primeira ou segunda coluna. Por exemplo se for uma lista com mais de 2
 // colunas não funcionaria.
-const SerieCard = ({ serie, isFirstColumn, onPress }) => (
+const AddSerieCard = ({ serie, isFirstColumn, onPress }) => (
     <TouchableOpacity style={[
         styles.container,
         isFirstColumn ? styles.firstColumn : styles.lastColumn
@@ -19,13 +19,9 @@ const SerieCard = ({ serie, isFirstColumn, onPress }) => (
     onPress={onPress}>
         <View style={styles.card}>
             <Image
-                source={{ uri: serie.img }}
-                aspectRatio={1}
-                resizeMode="cover"
+                style={styles.image}
+                source={require('../../resources/add.png')}
             />
-            <View style={styles.cardTitleWrapper}>
-                <Text style={styles.cardTitle}>{serie.title}</Text>
-            </View>
         </View>
     </TouchableOpacity>
 );
@@ -45,28 +41,16 @@ const styles = StyleSheet.create({
         // solucao 2.
         // margin: 10
     },
-    cardTitleWrapper: {
-        backgroundColor: 'black',
-        height: 50,
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        opacity: .8,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    cardTitle: {
-        color: 'white',
-        fontSize: 15,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
     firstColumn: {
         paddingLeft: 10
     },
     lastColumn: {
         paddingRight: 10
+    },
+    image: {
+        width: '100%',
+        height: '100%'
     }
 });
 
-export default SerieCard;
+export default AddSerieCard;
