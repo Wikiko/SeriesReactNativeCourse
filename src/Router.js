@@ -5,8 +5,8 @@ import SeriesPage from './pages/SeriesPage';
 
 export default createStackNavigator(
   {
-    Login: LoginPage,
-    Main: SeriesPage
+    Main: SeriesPage,
+    Login: LoginPage
   },
   {
     navigationOptions: {
