@@ -1,7 +1,6 @@
 import { SET_FIELD } from '../actions';
 
 const initialState = {
-
     id: null,
     title: '',
     gender: '',
